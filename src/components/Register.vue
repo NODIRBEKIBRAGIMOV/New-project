@@ -9,7 +9,7 @@
                 <Input :label="'Email address '" :type="'email'"/>
                 <Input :label="'Password'" :type="'password'"/>
 
-                <Button type="submit">Login</Button>
+                <Button type="submit" :disabled="isLoading" @click="submitHandler">Register</Button>
                 <!-- <button class="btn btn-primary w-100 py-2 mt-3" type="submit">Sign in</button> -->
             </form>
         </main>
@@ -19,7 +19,18 @@
 import Button from '@/Ui-components/Button.vue';
 import Input from '@/Ui-components/Input.vue';
 export default {
-    components: { Button, Input }
+    components: { Button, Input },
+    computed:{
+        isLoading(){
+            return this.$store.state.auth.isLoading
+        }
+    },
+    methods:{
+        submitHandler(e){
+            e.preventDefault();
+            this.$store.commit('setLoading')
+        }
+    }
 }
 </script>
 <style scoped></style>
